@@ -37,7 +37,7 @@ uv run sheet-coin
 sudo ./install.sh
 ```
 
-Installs to `/opt/sheet-coin`, sets up the systemd service, and creates a `.env` from the template if one doesn't exist. Re-running updates the installation in place.
+Installs to `/opt/sheet-coin`, sets up a systemd service that runs the app via Docker Compose, and creates a `.env` from the template if one doesn't exist. Re-running updates the installation in place. Requires Docker.
 
 ## Configuration
 

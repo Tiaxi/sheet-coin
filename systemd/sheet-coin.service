@@ -1,15 +1,18 @@
 [Unit]
 Description=Sheet Coin - CoinGecko API Proxy
-After=network-online.target
+After=docker.service network-online.target
+Requires=docker.service
 Wants=network-online.target
 
 [Service]
-Type=exec
+Type=simple
+Restart=always
+RestartSec=10
 WorkingDirectory=/opt/sheet-coin
-EnvironmentFile=/opt/sheet-coin/.env
-ExecStart=/opt/sheet-coin/.venv/bin/sheet-coin
-Restart=on-failure
-RestartSec=5
+ExecStartPre=/usr/bin/docker compose build
+ExecStart=/usr/bin/docker compose up --remove-orphans
+ExecStop=/usr/bin/docker compose down
+TimeoutStopSec=30
 
 [Install]
 WantedBy=multi-user.target

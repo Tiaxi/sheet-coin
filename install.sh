@@ -42,8 +42,8 @@ uninstall() {
 }
 
 install() {
-    if ! command -v uv &>/dev/null; then
-        echo "Error: uv is not installed. See https://docs.astral.sh/uv/getting-started/installation/" >&2
+    if ! command -v docker &>/dev/null; then
+        echo "Error: docker is not installed." >&2
         exit 1
     fi
 
@@ -91,11 +91,6 @@ install() {
         chmod 600 "$INSTALL_DIR/.env"
         ENV_CREATED=true
     fi
-
-    # Install dependencies
-    echo "Installing dependencies..."
-    cd "$INSTALL_DIR"
-    uv sync --frozen --no-dev
 
     # Install systemd service
     echo "Installing systemd service..."
