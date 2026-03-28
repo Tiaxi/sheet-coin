@@ -1,0 +1,15 @@
+[Unit]
+Description=Sheet Coin - CoinGecko API Proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=exec
+WorkingDirectory=/opt/sheet-coin
+EnvironmentFile=/opt/sheet-coin/.env
+ExecStart=/opt/sheet-coin/.venv/bin/sheet-coin
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

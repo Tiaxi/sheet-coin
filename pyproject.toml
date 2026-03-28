@@ -1,0 +1,29 @@
+[project]
+name = "sheet-coin"
+version = "1.0.0"
+description = "CoinGecko API proxy for Google Sheets"
+license = "MIT"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.115",
+    "httpx>=0.28",
+    "pydantic-settings>=2.7",
+    "uvicorn[standard]>=0.34",
+]
+
+[project.scripts]
+sheet-coin = "sheet_coin.app:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.25",
+    "respx>=0.22",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
