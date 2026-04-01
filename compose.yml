@@ -1,9 +1,16 @@
 services:
   sheet-coin:
+    container_name: sheet-coin
     build: .
     env_file: .env
     ports:
       - "${SHEET_COIN_PORT:-19877}:${SHEET_COIN_PORT:-19877}"
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:${SHEET_COIN_PORT:-19877}/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     volumes:
       - /etc/localtime:/etc/localtime:ro

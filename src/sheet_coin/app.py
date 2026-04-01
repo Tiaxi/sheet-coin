@@ -32,6 +32,11 @@ def get_collector(request: Request) -> CryptoDataCollector:
     return request.app.state.collector
 
 
+@router.get("/health")
+async def health():
+    return {"status": "ok"}
+
+
 @router.post("/coins", dependencies=[Depends(verify_credentials)])
 async def get_coin_data(
     request: Request,
