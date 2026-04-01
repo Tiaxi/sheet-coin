@@ -5,3 +5,5 @@ services:
     ports:
       - "${SHEET_COIN_PORT:-19877}:${SHEET_COIN_PORT:-19877}"
     restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro

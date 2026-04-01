@@ -92,6 +92,10 @@ install() {
         ENV_CREATED=true
     fi
 
+    # Rebuild Docker image
+    echo "Building Docker image..."
+    docker compose -f "$INSTALL_DIR/compose.yml" build
+
     # Install systemd service
     echo "Installing systemd service..."
     cp "$SCRIPT_DIR/$SERVICE_FILE" "/etc/systemd/system/${SERVICE_NAME}.service"
