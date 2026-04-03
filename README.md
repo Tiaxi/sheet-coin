@@ -31,14 +31,6 @@ uv sync
 uv run sheet-coin
 ```
 
-### systemd
-
-```bash
-sudo ./install.sh
-```
-
-Installs to `/opt/sheet-coin`, sets up a systemd service that runs the app via Docker Compose, and creates a `.env` from the template if one doesn't exist. Re-running updates the installation in place. Requires Docker.
-
 ## Configuration
 
 All settings are loaded from environment variables (prefix `SHEET_COIN_`) or a `.env` file.
