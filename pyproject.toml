@@ -3,7 +3,7 @@ name = "sheet-coin"
 version = "1.0.0"
 description = "CoinGecko API proxy for Google Sheets"
 license = "MIT"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 dependencies = [
     "fastapi>=0.115",
     "httpx>=0.28",
@@ -19,10 +19,39 @@ dev = [
     "pytest>=8.0",
     "pytest-asyncio>=0.25",
     "respx>=0.22",
+    "ruff>=0.11",
 ]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+
+[tool.ruff]
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "COM812",  # trailing commas — conflicts with ruff formatter
+    "D203",    # blank line before class docstring — incompatible with D211
+    "D213",    # multi-line summary second line — incompatible with D212
+    "G004",    # f-string logging — readable and fine for applications
+    "ISC001",  # implicit string concatenation — conflicts with ruff formatter
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = [
+    "ANN",      # type annotations on tests and fixtures add no value
+    "D",        # docstrings on tests are noise
+    "INP001",   # tests/ doesn't need __init__.py
+    "PLR2004",  # magic values in test assertions are readable
+    "RUF012",   # mutable class constants in test classes are fine
+    "S101",     # assert is how pytest works
+    "S105",     # hardcoded passwords in test fixtures
+    "S106",     # hardcoded password arguments in test fixtures
+    "S108",     # /tmp paths in test fixtures
+    "SIM117",   # nested with statements can be clearer in tests
+    "SLF001",   # tests legitimately access private members
+]
 
 [build-system]
 requires = ["hatchling"]

@@ -1,7 +1,11 @@
 import httpx
 import respx
 
-from sheet_coin.collector import COINGECKO_COIN_URL, COINGECKO_GLOBAL_URL, CryptoDataCollector
+from sheet_coin.collector import (
+    COINGECKO_COIN_URL,
+    COINGECKO_GLOBAL_URL,
+    CryptoDataCollector,
+)
 
 
 def test_get_data_returns_requested_coins():
@@ -44,7 +48,9 @@ def test_get_data_updates_requested_coin_ids():
 @respx.mock
 async def test_fetch_coin_caches_response():
     url = COINGECKO_COIN_URL.format(coin="bitcoin")
-    respx.get(url).respond(json={"id": "bitcoin", "market_data": {"current_price": {"usd": 50000}}})
+    respx.get(url).respond(
+        json={"id": "bitcoin", "market_data": {"current_price": {"usd": 50000}}},
+    )
     collector = CryptoDataCollector()
     await collector._fetch_coin("bitcoin")
     assert collector.data["bitcoin"]["id"] == "bitcoin"
@@ -53,7 +59,9 @@ async def test_fetch_coin_caches_response():
 
 @respx.mock
 async def test_fetch_global_caches_response():
-    respx.get(COINGECKO_GLOBAL_URL).respond(json={"data": {"total_market_cap": {"usd": 1e12}}})
+    respx.get(COINGECKO_GLOBAL_URL).respond(
+        json={"data": {"total_market_cap": {"usd": 1e12}}},
+    )
     collector = CryptoDataCollector()
     await collector._fetch_global()
     assert collector.data["global"]["data"]["total_market_cap"]["usd"] == 1e12
